@@ -5,7 +5,7 @@
 layout: splash
 title: " "
 header:
-  image: /assets/images/splashNameCrop.gif
+  image: /assets/images/splashNameCropReverse.gif
 ---
 
 <style>
