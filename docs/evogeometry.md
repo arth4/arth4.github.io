@@ -54,8 +54,8 @@ r { color: Red }
 </style>
 
 Artificial Spin Ice (<g>ASI</g>) are systems of many interacting nanomagnets typically arranged in some 2d pattern.  As ASI came from material physics and the study of interactions on a lattice/ crystal structure, the ASI geometries tend to be <r>regular lattices</r>. 
-![boring lattices](/assets/images/tmp.png){: .align-center}
-I found this to be a bit boring and wanted to explore a much vaster set of ASI geometries, free from a grid. We could of course just randomly place magnets, but there would be no complexity or structure. Evolutionary Algorithms (<g>EAs</g>) are a powerful tool for exploring and searching for things in hard to traverse search-spaces. As such I wanted a new representation for ASI geometries that could represent many complex irregular patterns, and be suitable for EAs.
+![boring lattices](/assets/images/evogeometry/exampleGeoms.png){: .align-center}
+I found these lattices to be a bit boring and wanted to explore a much vaster set of ASI geometries, free from a grid. We could of course just randomly place magnets, but there would be no complexity or structure. Evolutionary Algorithms (<g>EAs</g>) are a powerful tool for exploring and searching for things in hard to traverse search-spaces. As such I wanted a new representation for ASI geometries that could represent many complex irregular patterns, and be suitable for EAs.
 
 In my representation ASI geometries are represented as one or more (*<g>Tiles</g>*). Each Tile contains exactly two magnets, on in the centre and one anywhere else. We can then (<g>grow</g>) geometries by starting from one magnet repeatedly applying the tiles. To apply the tile we copy it and try to place it some where in the geometry such that its centre magnet perfectly overlaps a magnet in the tile. Below we see this process for the square ASI.
 
