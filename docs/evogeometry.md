@@ -53,7 +53,7 @@ g { color: Chartreuse }
 r { color: Red }
 </style>
 
-Artificial Spin Ice (<g>ASI</g>) are systems of many interacting nanomagnets typically arranged in some 2d pattern.  As ASI came from material physics and the study of interactions on a lattice/ crystal structure, the ASI geometries tend to be <r>regular lattices</r>. 
+Artificial Spin Ice (<g>ASI</g>) are systems of many interacting nanomagnets typically arranged in some 2d pattern. As ASI came from material physics and the study of interactions on a crystalline structure, the ASI geometries tend to be <r>regular lattices</r>. 
 ![boring lattices](/assets/images/evogeometry/exampleGeoms.png){: .align-center}
 I found these lattices to be a bit boring and wanted to explore a much vaster set of ASI geometries, free from a grid. We could of course just randomly place magnets, but there would be no complexity or structure. Evolutionary Algorithms (<g>EAs</g>) are a powerful tool for exploring and searching for things in hard to traverse search-spaces. As such I wanted a new representation for ASI geometries that could represent many complex irregular patterns, and be suitable for EAs.
 
@@ -74,7 +74,7 @@ As the representation is generative (it grows) we can allow the systems to grow 
 
 
 <figure>
-    <p style="text-align:right;">
+    <p style="text-align:center;">
         <img src="/assets/images/evogeometry/bigAsiGrowCrop.gif" alt="growing very big geometry" style="width: 70%;">
     </p>
 </figure>

@@ -41,7 +41,7 @@ The goal was two-fold:
 To provide stimulus to the ASI, this time I applied a global magnetic field at an angle. Each step I would increase the angle by 23◦. This functioned as metronome, each tick giving the ASI the option to produce notes. The music is extracted by gridding the ASI and splitting into cells which are each assigned a different instrument to play, as such I named it my **<g>Nanomagnetic Orchestra.</g>**
 
 ![generating geometries](/assets/images/latticeDemo.gif){: .align-right} 
-To find a geometry I developed a means of generating lattice based geometries and used an evolutionary algorithm to fine tune them. To evaluate the *fitness* of the geometries as producers of music, I made a custom function to which the input is the magnetic dynamics produces by the ASI. The function outputs a score based on how *musical* it predicts the output will be. A more thorough description can be found in my paper: ([Evolving Music from a Self-Organising Nanomagnetic Orchestra](https://hdl.handle.net/11250/3115319){:target="_blank"}). The music uses the C major scale.
+To find a geometry, I developed a means of generating lattice-based geometries and used an evolutionary algorithm to fine tune them. To evaluate the *musical fitness* of the geometries, I made a custom function to which the input is the magnetic dynamics produces by the ASI. The function outputs a score based on how *musical* it predicts the output will be. A more thorough description can be found in my paper: ([Evolving Music from a Self-Organising Nanomagnetic Orchestra](https://hdl.handle.net/11250/3115319){:target="_blank"}). The music uses the C major scale.
 
 The outcome was the following piece of music:
 {% include video id="3KPLQVp1uKk" provider="youtube" %}
