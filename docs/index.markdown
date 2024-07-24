@@ -35,7 +35,7 @@ r { color: Red }
 </style>
 
 # Interests
- evolutionary algorithms <r>×</r> artificial life <r>×</r> material computing <r>×</r> open-endedness... 
+ material computing <r>×</r> evolutionary algorithms <r>×</r> reservoir computing <r>×</r> artificial life <r>×</r>  open-endedness... 
 
 ## Projects
 {% include feature_row %}

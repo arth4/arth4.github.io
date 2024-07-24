@@ -75,7 +75,7 @@ As the representation is generative (it grows) we can allow the systems to grow 
 
 <figure>
     <p style="text-align:center;">
-        <img src="/assets/images/evogeometry/biggerAsiGrowCropFast.gif" alt="growing very big geometry" style="width: 70%;">
+        <img src="/assets/images/evogeometry/biggererAsiGrowCropFast.gif" alt="growing very big geometry" style="width: 70%;">
     </p>
 </figure>
 
