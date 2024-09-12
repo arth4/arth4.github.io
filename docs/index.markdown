@@ -22,12 +22,12 @@ feature_row:
     btn_label: "Read More"
     btn_class: "btn--inverse"
 
-  - image_path: /assets/images/gliderASICutoutAnim.gif
-    alt: "glider shaped ASI"
-    title: "Gliders in Artificial Spin Ice"
-    url: /gliders/
-    btn_label: "Read More"
-    btn_class: "btn--inverse"
+#  - image_path: /assets/images/gliderASICutoutAnim.gif
+#    alt: "glider shaped ASI"
+#    title: "Gliders in Artificial Spin Ice"
+#    url: /gliders/
+#    btn_label: "Read More"
+#    btn_class: "btn--inverse"
 ---
 
 <style>
