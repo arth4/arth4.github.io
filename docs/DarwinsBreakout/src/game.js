@@ -467,13 +467,15 @@ var Paddle = /** @class */ (function () {
             this.hunger = 0;
         if (this.hunger > PADDLE_STARVE_TIME / this.length_modifier)
             return this.die();
+        var touchHandicap = 1;
         if (touchTargetX !== null) {
             this.moveTowards(touchTargetX, delta);
+            touchHandicap = 1.1;
         }
         else {
             this.move(keyboardMoving[keyboardMoving.length - 1]);
         }
-        this.x += this.xv * delta * this.speed_modifier;
+        this.x += this.xv * delta * this.speed_modifier * touchHandicap;
         // stop paddle at walls
         var wall = Walls.wall;
         if (this.x < wall + this.w * 0.5) {
@@ -3002,7 +3004,7 @@ function touchCancel(ev) {
     touch(null);
 }
 function touchEnd(ev) {
-    Ball.balls.forEach(function (b) { return b.serve(); });
+    Ball.balls.forEach(function (b) { return b.serve(1 / 2 * Math.PI); });
     ev.preventDefault();
     touch(null);
 }
