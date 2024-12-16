@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Evo Breakout</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: black;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            height: 100vh;
+        }
+
+        .input-container {
+            display: flex;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        input, button {
+            padding: 2px 17px;  /* smaller padding */
+            font-size: 10px;     /* smaller font size */
+            margin: 0 2px;       /* space between input and button */
+        }
+
+        canvas {
+            display: block;
+            margin-top: 0px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="input-container">
+        <input type="text" id="passwordInput" placeholder="Enter code" />
+        <button id="checkPasswordButton">Submit</button>
+    </div>
+    <script src="src/game.js"></script>
+</body>
+
+</html>
