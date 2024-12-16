@@ -93,6 +93,11 @@ var SPAWN_BLOCKS_SFX = new Audio("sounds/smw_yoshi_spit.wav");
 var LAMARCK_INTRO_VOICE = new Audio("sounds/voice/LamarckIntro.wav");
 var HADOUKEN_SFX = new Audio("sounds/hadouken.mp3");
 var HADOUKEN_HIT_SFX = new Audio("sounds/smw_bowser_fire.wav");
+var SPLATS_SFX = [
+    new Audio("sounds/splat1.mp3"),
+    new Audio("sounds/splat2.mp3"),
+    new Audio("sounds/splat3.mp3"),
+];
 var LAMARCK_TAUNTS = [
     new Audio("sounds/voice/taunts/taunt_adapt.wav"),
     new Audio("sounds/voice/taunts/taunt_phylotree.wav"),
@@ -470,7 +475,7 @@ var Paddle = /** @class */ (function () {
         var touchHandicap = 1;
         if (touchTargetX !== null) {
             this.moveTowards(touchTargetX, delta);
-            touchHandicap = 1.1;
+            touchHandicap = 1.25;
         }
         else {
             this.move(keyboardMoving[keyboardMoving.length - 1]);
@@ -484,7 +489,7 @@ var Paddle = /** @class */ (function () {
         else if (this.x > canv.width - wall - this.w * 0.5 && !Walls.open) { //allow exceed canv width when wall open
             this.x = canv.width - wall - this.w * 0.5;
         }
-        if (this.x - this.w * 0.5 > width)
+        if (Walls.open && this.x - this.w * 0.2 > width)
             Level.doorEnter();
     };
     Paddle.prototype.draw = function () {
@@ -1610,6 +1615,8 @@ var Explosion = /** @class */ (function () {
         this.rot = randRange(0, 2 * Math.PI);
         this.birthTime = TimeLord.now();
         Explosion.explosions.push(this);
+        playSfx(SPLATS_SFX[Explosion.sfxIndx]);
+        Explosion.sfxIndx = (Explosion.sfxIndx + 1) % SPLATS_SFX.length;
     }
     Explosion.prototype.draw = function () {
         var age = TimeLord.now() - this.birthTime;
@@ -1680,6 +1687,7 @@ var Explosion = /** @class */ (function () {
         configurable: true
     });
     Explosion.explosions = [];
+    Explosion.sfxIndx = 0;
     return Explosion;
 }());
 var ExplosionRect = /** @class */ (function () {
@@ -1717,37 +1725,41 @@ var Star = /** @class */ (function () {
     function Star(x, y) {
         this._w = 0.3;
         this._h = 0.3;
-        this.spd = 0.15;
+        this.spd = 0.3;
         this.lifetime = 0;
         this._x = x / canv.width;
         this._y = y / canv.width;
-        var dx = x - canv.width * 0.5;
-        var dy = y - canv.height * 0.7;
-        var angle = Math.atan2(dy, dx);
-        this._xv = this.spd * Math.cos(angle);
-        this._yv = this.spd * Math.sin(angle);
+        this.updateAngle();
         this.color = (randRange(-0.1, 0.1) + Star.colorMatch) % 1;
         Star.stars.push(this);
     }
     Star.prototype.update = function (timeDelta) {
+        this.updateAngle();
         this._x += this._xv * timeDelta;
         this._y += this._yv * timeDelta;
         this.lifetime += timeDelta;
-        if (this.lifetime > 5) {
+        if (this.lifetime > 2.5 || this._x < 0 || this._x > 1 || this._y < 0) {
             remove(this, Star.stars);
         }
     };
+    Star.prototype.updateAngle = function () {
+        var dx = this._x - Paddle.paddles[0].x / canv.width;
+        var dy = this._y - Paddle.paddles[0].y / canv.width;
+        var angle = Math.atan2(dy, dx);
+        this._xv = this.spd * Math.cos(angle);
+        this._yv = this.spd * Math.sin(angle);
+    };
     Star.prototype.draw = function () {
-        ctx.globalAlpha = clip(this.lifetime, 0.2, 1);
+        ctx.globalAlpha = clip(this.lifetime * 4, 0.3, 1);
         ctx.fillStyle = colourMap(this.color, 0.3);
-        var size = 0.007 * this.lifetime * canv.width;
+        var size = clip(this.lifetime * 0.005, 0.005, 0.01) * canv.width;
         ctx.fillRect(this._x * canv.width, this._y * canv.width, size, size);
         ctx.globalAlpha = 1;
     };
     Star.update_all = function (timeDelta) {
         this.stars.forEach(function (s) { return s.update(timeDelta); });
-        if (this.active && this.stars.length < this.MAX_STARS && TimeLord.now() > this.lastStarBornTime + 0.1) {
-            new Star(randRange(0.1 * canv.width, 0.9 * canv.width), randRange(0.1 * canv.height, 0.9 * canv.height));
+        if (this.active && this.stars.length < this.MAX_STARS && TimeLord.now() > this.lastStarBornTime + 0.005) {
+            new Star(randRange(0.25 * canv.width, 0.75 * canv.width), randRange(0.5 * canv.height, 0.9 * canv.height));
             this.lastStarBornTime = TimeLord.now();
         }
         if (this.active) {
@@ -2213,7 +2225,6 @@ var Level = /** @class */ (function () {
         new Tween(p.y, -p.h, 2, function (y) { return p.y = y; }, function () {
             new Tween(0, 2, 6, function (v) { return fade2black = v; }, function () {
                 stopBGMusic();
-                setDimensions2(1 / ZEBES_HEIGHT2WIDTH);
                 new Explosion(0.5 * canv.width, 0.5 * canv.height).scale(10);
                 Tween.Waiter(0.61, function () {
                     fade2black = 3;
@@ -2226,8 +2237,8 @@ var Level = /** @class */ (function () {
                     Level.currentLevel.bgMusic = OUTRO_MUSIC;
                     startBGMusic();
                     var dur = 5;
-                    new Tween(0, 0.1, dur, function (h) { return p._h = h; });
-                    new Tween(0, 0.5, dur, function (w) { return p._w = w; });
+                    new Tween(0, 0.05, dur, function (h) { return p._h = h; });
+                    new Tween(0, 0.25, dur, function (w) { return p._w = w; });
                     new Tween(0, 0.75 * canv.height, dur, function (y) { return p.y = y; }, function () {
                         Star.activate();
                         Paddle.paddles[0].active = true;
