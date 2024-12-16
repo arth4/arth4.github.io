@@ -2665,7 +2665,7 @@ function setDimensions() {
     height = Math.max(window.innerHeight * 14 / 16, 10); // pixels
     width = height / SCREEN_RATIO;
     if (width > window.innerWidth) {
-        width = Math.max(window.innerHeight, 10);
+        width = Math.max(window.innerWidth, 10);
         height = width * SCREEN_RATIO;
     }
     Walls.wall = width / 50;
