@@ -463,6 +463,7 @@ var Paddle = /** @class */ (function () {
         }
     };
     Paddle.prototype.update = function (delta) {
+        var _this = this;
         var _a;
         if (!this.active)
             return;
@@ -489,8 +490,11 @@ var Paddle = /** @class */ (function () {
         else if (this.x > canv.width - wall - this.w * 0.5 && !Walls.open) { //allow exceed canv width when wall open
             this.x = canv.width - wall - this.w * 0.5;
         }
-        if (Walls.open && this.x - this.w * 0.2 > width)
-            Level.doorEnter();
+        if (Walls.open && this.x + this.w * 0.3 > width) {
+            this.active = false;
+            var goal = width + this.w * 0.5;
+            new Tween(this.x, goal, 0.3, function (x) { return _this.x = x; }, function () { return Level.doorEnter(); });
+        }
     };
     Paddle.prototype.draw = function () {
         var exposure = PADDLE_HEALTHY_EXP;
@@ -2378,6 +2382,7 @@ var Level = /** @class */ (function () {
         Ball.balls = [];
         stopBGMusic();
         playSfx(FAIL_SFX);
+        Paddle.flush();
         if (Lamarck.obj) {
             Tween.Waiter(2, function () {
                 var _a;
@@ -3016,6 +3021,7 @@ function touchCancel(ev) {
 }
 function touchEnd(ev) {
     Ball.balls.forEach(function (b) { return b.serve(1 / 2 * Math.PI); });
+    startBGMusic();
     ev.preventDefault();
     touch(null);
 }
