@@ -335,7 +335,7 @@ var Walls;
         ctx.stroke();
     }
     function startOpen() {
-        playSfx(WHOOSH_SFX, 0.4);
+        playSfx(WHOOSH_SFX);
         new Tween(0, 1, 1, function (v) { Walls.openFraction = v; }, function () { return Walls.open = true; });
     }
     Walls.startOpen = startOpen;
@@ -1320,7 +1320,7 @@ var Brick = /** @class */ (function () {
             ball.streak += 1;
             if (ball.streak >= notes.length)
                 ball.streak = 0;
-            playSfx(notes[ball.streak]);
+            playSfx(notes[ball.streak], 0.5);
             if (Brick.aliveBricks.length < 1 && Brick.revivingBricks.length < 1)
                 Level.win();
             else
@@ -2887,9 +2887,10 @@ function range(n) {
         }
     });
 }
-function playSfx(sfx, t) {
-    if (t === void 0) { t = 0; }
-    sfx.currentTime = t;
+function playSfx(sfx, volume) {
+    if (volume === void 0) { volume = 1; }
+    sfx.currentTime = 0;
+    sfx.volume = volume;
     if (sfx.paused) {
         sfx.play();
     }
