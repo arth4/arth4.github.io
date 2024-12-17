@@ -542,7 +542,7 @@ var Paddle = /** @class */ (function () {
             kid.w = w;
             kid.h = h;
             kid.colour = c;
-        }, function () { kid.active = true; });
+        }, function () { kid.active = true; kid.setRow(kid.row); });
         // set start val to stop wrong place on first draw
         kid._x = this._x;
         kid._y = this._y;
@@ -560,6 +560,23 @@ var Paddle = /** @class */ (function () {
     };
     Paddle.prototype.onAlive = function () {
         this.abilities.forEach(function (abl) { return abl.onAlive(); });
+    };
+    Paddle.cycle = function (shift) {
+        if (shift === void 0) { shift = 1; }
+        Paddle.freeRows = new Set(range(max_paddles));
+        Paddle.paddles.forEach(function (p) {
+            p.setRow((p.row + shift + max_paddles) % max_paddles);
+        });
+    };
+    Paddle.prototype.setRow = function (row) {
+        if (!Paddle.freeRows.has(row)) {
+            if (Paddle.freeRows.size > 0)
+                return this.setRow((row + 1 + max_paddles) % max_paddles);
+            return;
+        }
+        this.row = row;
+        this.y = (canv.height - this.h * (3 + row));
+        Paddle.freeRows.delete(this.row);
     };
     return Paddle;
 }());
@@ -995,39 +1012,43 @@ var Ball = /** @class */ (function () {
         configurable: true
     });
     Ball.prototype.update = function (delta) {
-        this.x += this.xv * delta;
-        this.y += this.yv * delta;
-        this.abilities.forEach(function (abl) { return abl.update(delta); });
-        //bounce off wall
-        var wall = Walls.wall;
-        if (this.x < wall + this.w * 0.5) {
-            this.x = wall + this.w * 0.5;
-            this.bounce(BounceType.LEFT_RIGHT);
+        if (this.isServed) {
+            this.x += this.xv * delta;
+            this.y += this.yv * delta;
+            this.abilities.forEach(function (abl) { return abl.update(delta); });
+            //bounce off wall
+            var wall = Walls.wall;
+            if (this.x < wall + this.w * 0.5) {
+                this.x = wall + this.w * 0.5;
+                this.bounce(BounceType.LEFT_RIGHT);
+            }
+            else if (this.x > canv.width - wall - this.w * 0.5) {
+                this.x = canv.width - wall - this.w * 0.5;
+                this.bounce(BounceType.LEFT_RIGHT);
+                ;
+            }
+            else if (this.y < wall + this.h * 0.5) {
+                this.y = wall + this.h * 0.5;
+                this.bounce(BounceType.TOP_BOTTOM);
+                ;
+            }
+            // bounce off the paddle
+            for (var _i = 0, _a = Paddle.paddles; _i < _a.length; _i++) {
+                var paddle = _a[_i];
+                if (this.checkPaddleBounce(paddle))
+                    break;
+            }
+            // handle out of bounds
+            if (this.y > canv.height) {
+                this.outOfBounds();
+            }
+            // move stationary ball with paddle
         }
-        else if (this.x > canv.width - wall - this.w * 0.5) {
-            this.x = canv.width - wall - this.w * 0.5;
-            this.bounce(BounceType.LEFT_RIGHT);
-            ;
-        }
-        else if (this.y < wall + this.h * 0.5) {
-            this.y = wall + this.h * 0.5;
-            this.bounce(BounceType.TOP_BOTTOM);
-            ;
-        }
-        // bounce off the paddle
-        for (var _i = 0, _a = Paddle.paddles; _i < _a.length; _i++) {
-            var paddle = _a[_i];
-            if (this.checkPaddleBounce(paddle))
-                break;
-        }
-        // handle out of bounds
-        if (this.y > canv.height) {
-            this.outOfBounds();
-        }
-        // move stationary ball with paddle
-        if (!this.isServed) {
+        else {
             this.x = Paddle.paddles[0].x;
             this.y = Paddle.paddles[0].y - Paddle.paddles[0].h / 2 - this.h / 2;
+            this._xv = 0;
+            this._yv = 0;
         }
     };
     Ball.prototype.checkPaddleBounce = function (paddle) {
@@ -2997,6 +3018,12 @@ function keyDown(ev) {
             pushMove(Direction.RIGHT);
             // debugLog("R key down")
             break;
+        case "ArrowUp":
+            Paddle.cycle();
+            break;
+        case "ArrowDown":
+            Paddle.cycle(-1);
+            break;
     }
 }
 function keyUp(ev) {
@@ -3031,7 +3058,10 @@ function touchMove(ev) {
 }
 function touchStart(ev) {
     ev.preventDefault();
-    touch(ev.touches[0].clientX - canv.getBoundingClientRect().left);
+    var rect = canv.getBoundingClientRect();
+    touch(ev.touches[0].clientX - rect.left);
+    if (ev.touches[0].clientY - rect.top < canv.height / 2)
+        Paddle.cycle();
 }
 function rad2deg(angle) {
     return (angle / Math.PI * 180);
