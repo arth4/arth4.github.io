@@ -568,10 +568,13 @@ var Paddle = /** @class */ (function () {
             p.setRow((p.row + shift + max_paddles) % max_paddles);
         });
     };
-    Paddle.prototype.setRow = function (row) {
+    Paddle.prototype.setRow = function (row, looped) {
+        if (looped === void 0) { looped = false; }
         if (!Paddle.freeRows.has(row)) {
+            if (looped)
+                throw new Error("looped setRow");
             if (Paddle.freeRows.size > 0)
-                return this.setRow((row + 1 + max_paddles) % max_paddles);
+                return this.setRow(Paddle.freeRows.values().next().value, true);
             return;
         }
         this.row = row;
