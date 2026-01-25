@@ -48,4 +48,5 @@ Here we see the lowest snake's collision with the edge start an explosion that e
 Finally, if we vertically flip the snake we can have it move in the opposite direction:
 ![multisnake](/assets/images/snakeBothWays.gif){: .align-center}
 This is interesting as the same global fields are effecting all of the snakes, but the structure of the snakes causes them to move differently (rightwards or leftwards).
-    
+
+To read more about this work, check out the [paper](https://doi.org/10.1038/s41467-025-62515-1)!
