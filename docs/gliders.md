@@ -1,6 +1,6 @@
 ---
 layout: posts
-title: Gliders in Artifical Spin Ice
+title: Gliders in Artificial Spin Ice
 permalink: /gliders/
 classes: wide
 author_profile: false
@@ -33,19 +33,19 @@ For a system to move it has to grow and shrink at the same time. Which sounds st
 To find a glider we need two things: to find the field strengths that make gliding possible, and to find a structure capable of gliding.
 TO do this I used an evolutionary algorithm to search for these parameters. I designed a fitness function to capture glider-behaviour by rewarding a constant amount of activation, and penalising frozen or oscillatory dynamics. The resulting **best solution** found through evolution is shown below:
 
-![worm like glider in ASI](/assets/images/firstSnake.gif){: .align-center}
-We see an initial quite random state quickly collapse into this worm-like glider, which crawls along the ASI until it becomes close to the other edge and the edge interactions cause it to explode. The reason for the explosion is we have a much larger neighbourhood than in game of life, and as we approach the edge the balance of interactions is disrupted enough to cause the glider behaviour to stop.
+![snake like glider in ASI](/assets/images/firstSnakeCut.gif){: .align-center}
+We see an initial quite random state quickly collapse into this snake-like glider, which crawls along the ASI until it becomes close to the other edge and the edge interactions cause it to explode. The reason for the explosion is we have a much larger neighbourhood than in game of life, and as we approach the edge the balance of interactions is disrupted enough to cause the glider behaviour to stop.
 
-## Playing with the worms
-There are a number of cool things we can do with these worm-like gliders. 
-![growing and shrinking the worm](/assets/images/snakeGrwShrnkCrop.gif){: .align-right}
-Pausing the application of negative fields and only applying the positive fields causes the worm to grow, while the opposite causes it to shrink. Here we are moving the head while freezing the tail or vice-versa. 
+## Playing with the snakes
+There are a number of cool things we can do with these snake-like gliders. 
+![growing and shrinking the snake](/assets/images/snakeGrwShrnkCrop.gif){: .align-right}
+Pausing the application of negative fields and only applying the positive fields causes the snake to grow, while the opposite causes it to shrink. Here we are moving the head while freezing the tail or vice-versa. 
 
-We can have many worms occupying the same system:
-![multiworm](/assets/images/staggerSnakes.gif){: .align-center}
-Here we see the lowest worm's collision with the edge start an explosion that eventually envelopes all other worms. We see an interesting pattern form as the explosion hits the second worm from the bottom. A convex structure is created that transmits itself to the right, almost like a meta-glider.
+We can have many snakes occupying the same system:
+![multisnake](/assets/images/staggerSnakes.gif){: .align-center}
+Here we see the lowest snake's collision with the edge start an explosion that eventually envelopes all other snakes. We see an interesting pattern form as the explosion hits the second snake from the bottom. A convex structure is created that transmits itself to the right, almost like a meta-glider.
 
-Finally, if we vertically flip the worm we can have it move in the opposite direction:
-![multiworm](/assets/images/snakeBothWays.gif){: .align-center}
-This is interesting as the same global fields are effecting all of the worms, but the structure of the worms causes them to move differently (rightwards or leftwards).
+Finally, if we vertically flip the snake we can have it move in the opposite direction:
+![multisnake](/assets/images/snakeBothWays.gif){: .align-center}
+This is interesting as the same global fields are effecting all of the snakes, but the structure of the snakes causes them to move differently (rightwards or leftwards).
     
