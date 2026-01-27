@@ -35,7 +35,7 @@ r { color: Red }
 </style>
 
 # Interests
- material computing <r>×</r> evolutionary algorithms <r>×</r> reservoir computing <r>×</r> artificial life <r>×</r>  open-endedness... 
+ evolutionary algorithms <r>×</r> material computing <r>×</r> artificial life <r>×</r> reservoir computing <r>×</r>  open-endedness... 
 
 ## Projects
 {% include feature_row %}
@@ -44,11 +44,19 @@ r { color: Red }
 ## Publications
 Publications can be found on my [Google Scholar Profile](https://scholar.google.com/citations?user=CqwS00sAAAAJ){:target="_blank"}, or seen below:
 
-### [Clocked Dynamics in Artificial Spin Ice.](https://doi.org/10.1038/s41467-024-45319-7)
+### [Artificial Life *in-materio*](https://doi.org/10.1162/ISAL.a.894)
+Penty, A.;  Jensen, J. H; and Tufte, G. (2025)<br>
+*Artificial Life 2025 Conference Proceedings*
+
+### [Controllable gliders in a Nanomagnetic Metamaterial](https://doi.org/10.1038/s41467-025-62515-1)
+Penty, A.;  Jensen, J. H; Breivik, I.; Strømberg, A.; Folven, E; and Tufte, G. (2025)<br>
+*Nature Communications 16(1) , 7500.*
+
+### [Clocked Dynamics in Artificial Spin Ice](https://doi.org/10.1038/s41467-024-45319-7)
 Jensen, J. H; Strømberg, A.; Breivik, I.; Penty, A.; Niño, M. A.; Khaliq, M. W.; Foerster, M.; Tufte, G.; and Folven, E. (2024)<br>
 *Nature Communications, 15(1): 964. 2024.*
 
-### [Evolving Music from a Self-Organising Nanomagnetic Orchestra.](https://hdl.handle.net/11250/3115319)
+### [Evolving Music from a Self-Organising Nanomagnetic Orchestra](https://hdl.handle.net/11250/3115319)
 Penty, A.; and Tufte, G. (2023)<br>
 *Artificial Life Conference Proceedings 35, volume 2023, pages 62, 2023. MIT Press One Rogers Street, Cambridge, MA 02142-1209, USA*
 
@@ -56,7 +64,7 @@ Penty, A.; and Tufte, G. (2023)<br>
 Penty, A. G.; and Tufte, G. (2023)<br>
 *International Journal of Unconventional Computing, Old City Publishing*
 
-### [flatspin: A Large-Scale Artificial Spin Ice Simulator.](https://doi.org/10.1103/PhysRevB.106.064408)
+### [flatspin: A Large-Scale Artificial Spin Ice Simulator](https://doi.org/10.1103/PhysRevB.106.064408)
 Jensen, J. H; Strømberg, A.; Lykkebø, O. R.; Penty, A.; Leliaert, J.; Själander, M.; Folven, E.; and Tufte, G. (2022)<br>
 *Physical Review B, 106(6): 064408. 2022.*
 
